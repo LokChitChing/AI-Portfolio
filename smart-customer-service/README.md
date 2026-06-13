@@ -9,7 +9,7 @@
 
 - **开发时间**：2025.04 - 2025.06  
 - **项目角色**：独立完成（全栈开发：后端 + 前端 + AI 模块）  
-- **应用场景**：某连锁服务机构/某培训机构原有官网客服只能回复固定 FAQ，无法理解复杂问题，也无法自动获取用户联系方式。
+- **应用场景**：某连锁服务机构原有官网客服只能回复固定 FAQ，无法理解复杂问题，也无法自动获取用户联系方式。
 
 ---
 
@@ -30,7 +30,7 @@
 | 类别 | 技术 |
 |---|---|
 | 后端框架 | FastAPI |
-| 向量数据库 | Qdrant |
+| 向量数据库 | ChromaDB |
 | RAG 框架 | LlamaIndex |
 | 大模型 | DeepSeek / 智谱 AI |
 | 文档分段 | 自定义 LLMBasedSplitter（基于大模型语义分段） |
@@ -50,7 +50,7 @@
 3. **RAG 问答**：向量检索 + 关键词检索 + Rerank 重排序，引用溯源
 4. **多轮对话**：基于对话历史的上下文理解
 5. **线索捕获**：正则预检联系方式 → Function Calling 确认 → 邮件通知销售
-6. **多租户隔离**：每个客户独立 Qdrant Collection
+6. **多租户隔离**：每个客户独立 ChromaDB Collection
 7. **联网搜索**：知识库无答案时自动搜索阿里云 OpenSearch
 
 ---
@@ -61,7 +61,7 @@ smart-customer-service/
 
 ├── main.py                 # FastAPI 应用入口 + 路由
 
-├── module.py               # RAG 检索 / 对话 /Embedding 核心逻辑
+├── module.py               # RAG 检索 / 对话 / Embedding 核心逻辑
 
 ├── custom_splitter.py      # 大模型自动分段器
 
@@ -89,14 +89,14 @@ smart-customer-service/
 ### 环境要求
 - Python 3.10+
 - FastAPI
-- Qdrant（本地或 Docker）
+- ChromaDB
 - 大模型 API Key（DeepSeek / 智谱 AI）
 
 ### 安装依赖
 
 bash
 
-pip install fastapi uvicorn qdrant-client llama-index openai
+pip install fastapi uvicorn chromadb openai tiktoken cryptography
 
 ### 运行
 
