@@ -22,7 +22,7 @@ class LLMBasedSplitter:
             model: 使用的模型名称
         """
         self.client = OpenAI(
-            api_key=api_key or "your-api-key-here",
+            api_key=api_key or "your-deepseek-api-key-here",
             base_url="https://api.deepseek.com"  # 可切换其他兼容接口
         )
         self.model = model
