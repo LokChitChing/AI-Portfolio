@@ -208,7 +208,7 @@ class RAGChatEngine:
             self.sessions[session_id] = self.sessions[session_id][-20:]
         
         return {
-            "reply": reply,
+            "response": reply,
             "session_id": session_id,
             "sources": [
                 {
