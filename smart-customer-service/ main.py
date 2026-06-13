@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from typing import Optional, List
 
 from fastapi import FastAPI, HTTPException, Depends, Header, UploadFile, File, Form, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse,FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -108,6 +108,7 @@ async def admin_page():
     """管理页面"""
     with open("static/admin.html", "r", encoding="utf-8") as f:
         return f.read()
+    
 
 @app.get("/section", response_class=HTMLResponse)
 async def section_page():
