@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能在线客服</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>智能在线客服</h1>
+            <p>24小时为您提供专业咨询服务</p>
+        </header>
+
+        <div class="chat-container">
+            <div id="chat-box" class="chat-box">
+                <!-- 聊天消息将在这里动态显示 -->
+                <div class="message system-message">
+                    您好！我是智能客服，请问有什么可以帮您？
+                </div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="message-input" placeholder="请输入您的问题..." autocomplete="off">
+                <button id="send-button" onclick="sendMessage()">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
