@@ -23,14 +23,14 @@ class RAGChatEngine:
         
         # 初始化 embedding 模型（使用智谱AI）
         self.embedding_client = OpenAI(
-            api_key="YOUR_ZHIPU_API_KEY",
+        api_key="your-zhipu-api-key-here",
             base_url="https://open.bigmodel.cn/api/paas/v4"
         )
         self.embedding_model = "embedding-2"
         
         # 初始化对话模型（使用 DeepSeek）
         self.chat_client = OpenAI(
-            api_key="YOUR_DEEPSEEK_API_KEY",
+            api_key="your-deepseek-api-key-here",
             base_url="https://api.deepseek.com"
         )
         self.chat_model = "deepseek-chat"
