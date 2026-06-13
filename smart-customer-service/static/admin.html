@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能客服后台管理系统</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h1>文档管理中心</h1>
+    
+    <table id="doc-table">
+        
+            
+                文档标题
+                上传时间
+                操作
+            
+        
+        <tbody id="doc-list-body">
+            <!-- 由 JavaScript 动态填充 -->
+        
+    
+    
+    <div id="status-message" class="loading">正在加载文档列表...</div>
+</div>
+
+<script>
+    const API_BASE = '/api'; 
+
+    async function loadDocuments() {
+        const statusDiv = document.getElementById('status-message');
+        try {
+            // 1. 发起网络请求获取数据
+            const res = await fetch(`${API_BASE}/documents`);
+            
+            if (!res.ok) {
+                throw new Error(`HTTP错误! 状态码: ${res.status}`);
+            }
+            
+            const data = await res.json();
+            
+            const tbody = document.getElementById('doc-list-body');
+            tbody.innerHTML = ''; // 清空旧数据
+
+            // 2. 检查是否有数据
+            if (!data.documents || data.documents.length === 0) {
+                statusDiv.textContent = '暂无文档，请先上传。';
+                statusDiv.className = 'loading';
+                return;
+            }
+
+            // 3. 动态生成表格行
+            data.documents.forEach(doc => {
+                const row = document.createElement('tr');
+                
+                // 格式化时间（可选）
+                const date = new Date(doc.created_at * 1000).toLocaleString();
+                
+                row.innerHTML = `
+                    ${doc.title}
+                    ${date}
+                    <a href="/section/${doc.id}">查看分段</a>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            statusDiv.style.display = 'none'; // 隐藏加载提示
+
+        } catch (error) {
+            console.error("加载文档失败:", error);
+            statusDiv.textContent = '加载失败: ' + error.message;
+            statusDiv.className = 'error';
+        }
+    }
+
+    // 页面加载完毕后执行
+    window.onload = loadDocuments;
+</script>
+
+</body>
+</html>
